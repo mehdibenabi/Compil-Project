@@ -46,14 +46,12 @@ liste_expression_log : expression_log PVG liste_expression_log
 expression_log : PAR_OUV liste_expression_log PAR_FER point operand_log point  liste_expression_log 
                 | expression_log point operand_log point  expression_log
                 | PAR_OUV expression_log PAR_FER
-                | idf_cst point operand_log point idf_cst
                 | idf_cst;
 expression_log_not: MC_NOT expression_log  | MC_NOT expression_log PVG expression_log_not;
 liste_expression_comp: expression_comp PVG liste_expression_comp | expression_comp PVG;
 expression_comp: PAR_OUV liste_expression_comp PAR_FER point operand_comp point liste_expression_comp 
                 | expression_comp point operand_comp point expression_comp
                 | PAR_OUV expression_comp PAR_FER
-                | idf_cst point operand_comp point idf_cst
                 | idf_cst;
 %%
 int yyerror(char*msg)
