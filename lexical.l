@@ -62,6 +62,7 @@ COMMENT \§.
 "%"         {printf("percentage");return PERCENT; }
 "$"         {printf("dolar");return DOLAR; }
 "#"         {printf("diaz");return DIAZ; }
+"|"         {printf("bar");return BAR; }
 "&"         {printf("and commercial");return AND_COM; }
 "@"         {printf("@");return AROB; }
 "\."        { printf(".\n");return point;}
