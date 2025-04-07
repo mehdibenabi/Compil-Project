@@ -33,17 +33,27 @@ idf_cst: INT_CST | FLOAT_CST | CHAR_CST | STRING_CST;
 dec_vec: MC_VECTOR DEPOINT IDF CRO_OUV INT_CST VRG INT_CST DEPOINT type CRO_FER PVG |MC_VECTOR DEPOINT IDF CRO_OUV INT_CST VRG INT_CST DEPOINT type CRO_FER PVG  dec_vec;
 operand: PLUS | MOIN | MULT | DIV;
 operand_log: MC_AND | MC_OR;
+operand_comp: MC_G | MC_L | MC_GE | MC_LE | MC_EQ | MC_DI;
 liste_epression_arth: expression_arth PVG liste_epression_arth | expression_arth PVG;
 expression_arth : PAR_OUV liste_epression_arth PAR_FER operand liste_epression_arth 
                 | idf_cst operand idf_cst | expression_arth operand expression_arth
                 | PAR_OUV expression_arth PAR_FER 
                 | idf_cst ;
-liste_expression_log : expression_log PVG liste_expression_log | expression_log PVG;
+liste_expression_log : expression_log PVG liste_expression_log 
+                | expression_log PVG 
+                | expression_log_not PVG liste_expression_log
+                | expression_log_not PVG;
 expression_log : PAR_OUV liste_expression_log PAR_FER point operand_log point  liste_expression_log 
                 | expression_log point operand_log point  expression_log
                 | PAR_OUV expression_log PAR_FER
                 | idf_cst point operand_log point idf_cst
-                |MC_NOT expression_log
+                | idf_cst;
+expression_log_not: MC_NOT expression_log  | MC_NOT expression_log PVG expression_log_not;
+liste_expression_comp: expression_comp PVG liste_expression_comp | expression_comp PVG;
+expression_comp: PAR_OUV liste_expression_comp PAR_FER point operand_comp point liste_expression_comp 
+                | expression_comp point operand_comp point expression_comp
+                | PAR_OUV expression_comp PAR_FER
+                | idf_cst point operand_comp point idf_cst
                 | idf_cst;
 %%
 int yyerror(char*msg)
