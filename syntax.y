@@ -53,6 +53,8 @@ expression_comp: PAR_OUV liste_expression_comp PAR_FER point operand_comp point 
                 | expression_comp point operand_comp point expression_comp
                 | PAR_OUV expression_comp PAR_FER
                 | idf_cst;
+
+
 %%
 int yyerror(char*msg)
 {
