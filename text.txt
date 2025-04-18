@@ -1,0 +1,23 @@
+Abdo
+DATA 
+    INTEGER: A | B;
+    CONST: C = (+5);
+END 
+CODE 
+    A = B + C;
+§wch rak sahbi lbs 
+    H='c'; 
+    READ("&":@A ); 
+    READ ("#":@Otring ); 
+    READ("$":@  Itr);
+    DISPLAY ("c'est un reel %": Float ); 
+    D
+    IF (Aa.GE.Bb): 
+    Cc=E+2,6; 
+        FOR (I:2 :N) 
+            Cc=E+2,6; 
+        END 
+    END
+    
+END 
+END 

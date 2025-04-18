@@ -1,3 +1,3 @@
 flex lexical.l
 bison -d syntax.y
-gcc lex.yy.c syntax.tab.c -lfl -o compiler.exe
+gcc lex.yy.c syntax.tab.c  -o comp.exe -lfl -ly

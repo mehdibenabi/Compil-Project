@@ -91,7 +91,12 @@
      CHAR_CST = 307,
      STRING_CST = 308,
      IDF = 309,
-     BAR = 310
+     BAR = 310,
+     FORMAT_AMP = 311,
+     FORMAT_HASH = 312,
+     FORMAT_DOLLAR = 313,
+     FORMAT_PERCENT = 314,
+     UMINUS = 315
    };
 #endif
 
@@ -105,13 +110,11 @@ typedef union YYSTYPE
 #line 13 "syntax.y"
 
     int entier;
-    float reel;
-    char* str;
 
 
 
 /* Line 1676 of yacc.c  */
-#line 115 "syntax.tab.h"
+#line 118 "syntax.tab.h"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */

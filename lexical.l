@@ -3,10 +3,10 @@
     #include <stdlib.h>
     #include <string.h>
     #include "syntax.tab.h"
-    #include "ts.h"
+
     int nb_ligne = 1;
-    int yyligne=1;
-    int yycolno=1;
+    int yyligne = 1;
+    int yycolno = 1;
 
     extern YYSTYPE yylval;
 %}
@@ -15,68 +15,68 @@ chiffre [0-9]
 IDF [A-Z]({lettre}|{chiffre})*
 INT_CST \([+-]{chiffre}+\)|{chiffre}+
 FLOAT_CST ({chiffre}+,{chiffre}+)|(\([+-]{chiffre}+,{chiffre}+\))
-CHAR_CST '.'
-STRING_CST \".*\"
-COMMENT \§.
+CHAR_CST '[a-zA-Z]'
+STRING_CST \"[^\"]*\"
+COMMENT \§[^\n]
 
 %%
-"DATA"       {printf("DATA"); return MC_DATA;}
-"END"       {printf("END"); return MC_END;}
-"CODE"       {printf("CODE"); return MC_CODE;}
-"VECTOR"       {printf("VECTOR"); return MC_VECTOR;}
-"INTEGER"       {printf("INTEGER"); return MC_INT;}
-"CHAR"       {printf("CHAR"); return MC_CHAR;}
-"STRING"       {printf("STRING"); return MC_STR;}
-"FLOAT"       {printf("FLOAT"); return MC_FLOAT;}
-"CONST"       {printf("CONST"); return MC_CST;}
-"READ"       {printf("READ"); return MC_READ;}
-"DISPLAY"       {printf("DISPLAY"); return MC_DISPLAY;}
-"AND"       {printf("AND"); return MC_AND;}
-"OR"        {printf("OR"); return MC_OR;}
-"NOT"       {printf("NOT"); return MC_NOT;}
-"G"       {printf(">"); return MC_G;}
-"L"       {printf("<"); return MC_L;}
-"GE"       {printf(">="); return MC_GE;}
-"LE"       {printf("=<"); return MC_LE;}
-"EQ"       {printf("="); return MC_EQ;}
-"DI"       {printf("<>"); return MC_DI;}
-"IF"       {printf("IF"); return MC_IF;}
-"ELSE"       {printf("ELSE"); return MC_ELSE;}
-"FOR"       {printf("FOR"); return MC_FOR;}
-"TRUE"      {printf("true");return MC_TRUE;}
-"FALSE"     {printf("false");return MC_FALSE;}
-","         {printf("virgule");return VRG;}
-"="         {printf("affectation");return AFF;}
-"+"         {printf("plus");return PLUS; }
-"-"         {printf("minus");return MOIN; }
-"*"         {printf("times");return MULT; }
-"/"         {printf("divide");return DIV; }
-";"         {printf("point vergule");return PVG; }
-":"         {printf("deux points");return DEPOINT; }
-"("         {printf("left par"); return PAR_OUV; }
-")"         {printf("right par"); return PAR_FER; }
-"["         {printf("left croch"); return CRO_OUV; }
-"]"         {printf("right croch"); return CRO_FER; }
-"{"         {printf("left acco"); return ACC_OUV; }
-"}"         {printf("right acco"); return ACC_FER; }
-"%"         {printf("percentage");return PERCENT; }
-"$"         {printf("dolar");return DOLAR; }
-"#"         {printf("diaz");return DIAZ; }
-"|"         {printf("bar");return BAR; }
-"&"         {printf("and commercial");return AND_COM; }
-"@"         {printf("@");return AROB; }
-"\."        { printf(".\n");return point;}
-"\'"        { printf("' ");return apos;}
-"\""        { printf("\"");return dbl_apos; }
+"DATA"       { return MC_DATA;}
+"END"        { return MC_END;}
+"CODE"       { return MC_CODE;}
+"VECTOR"     { return MC_VECTOR;}
+"INTEGER"    { return MC_INT;}
+"CHAR"       { return MC_CHAR;}
+"STRING"     { return MC_STR;}
+"FLOAT"      { return MC_FLOAT;}
+"CONST"      { return MC_CST;}
+"READ"       { printf("READ token recognized\n"); return MC_READ;}
+"DISPLAY"    { printf("mot cle display\n "); return MC_DISPLAY;}
+".AND."        { return MC_AND;}
+".OR."         { return MC_OR;}
+".NOT."        { return MC_NOT;}
+".G."          { return MC_G;}
+".L."          { return MC_L;}
+".GE."         { return MC_GE;}
+".LE."         { return MC_LE;}
+".EQ."         { return MC_EQ;}
+".DI."         { return MC_DI;}
+"IF"         { return MC_IF;}
+"ELSE"       { return MC_ELSE;}
+"FOR"        { return MC_FOR;}
+"TRUE"       { return MC_TRUE;}
+"FALSE"      { return MC_FALSE;}
 
-{COMMENT}   {printf("commentaire\n");}
-{INT_CST}   {printf("int");return INT_CST;}
-{FLOAT_CST}  {yylval.f = atof(yytext); return FLOAT_CST;}
-{CHAR_CST}   {yylval.c = yytext[0]; return CHAR_CST;}
-{STRING_CST} {yylval.s = yytext; return STRING_CST;}
-{IDF}        {yylval.s = yytext; return IDF;}
+","          { return VRG;}
+"="          { return AFF;}
+"+"          { return PLUS;}
+"-"          { return MOIN;}
+"*"          { return MULT;}
+"/"          { return DIV;}
+";"          { return PVG;}
+":"          { return DEPOINT;}
+"("          {printf("par ouv \n"); return PAR_OUV;}
+")"          { return PAR_FER;}
+"["          { return CRO_OUV;}
+"]"          { return CRO_FER;}
+"{"          { return ACC_OUV;}
+"}"          { return ACC_FER;}
+"%"          { printf("PERCENT recognized\n"); return PERCENT;}
+"$"          { printf("DOLLAR recognized\n"); return DOLAR;}
+"#"          { printf("HASH recognized\n"); return DIAZ;}
+"|"          { return BAR;}
+"&"          { printf("AMPERSAND recognized\n"); return AND_COM;}
+"@"          { return AROB;}
+"."          { return point;}
+"'"          { return apos;}
 
-[ \t] { nb_ligne++ ; yycolno++;} 
-\n { yyligne++; yycolno=1; } 
-. { yycolno++; printf("Erreur lexicale dans la ligne %d \n",nb_ligne);}
+{COMMENT}    {printf("commentaire\n");}
+{INT_CST}    { return INT_CST;}
+{FLOAT_CST}  { return FLOAT_CST;}
+{CHAR_CST}   { return CHAR_CST;}
+{STRING_CST} { return STRING_CST;}
+{IDF}        { return IDF;}
+
+[ \t]       {yycolno++;}
+\n          {yyligne++; yycolno=1;}
+.           {yycolno++; printf("Erreur lexicale dans la ligne %d \n",nb_ligne);}
 %%
