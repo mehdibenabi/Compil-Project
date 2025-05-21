@@ -1,0 +1,14 @@
+Abdo
+DATA 
+    INTEGER: A | D  | B | N | I ;
+    VECTOR : T [1, 5 : INTEGER] ; 
+    CONST: C  = 327;
+END 
+CODE 
+     
+  
+A = 5;
+B = 3;
+D= A+B;
+END
+END

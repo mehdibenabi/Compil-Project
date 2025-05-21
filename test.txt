@@ -1,0 +1,25 @@
+Abdo
+DATA 
+    INTEGER: A | D  | B | N | I ;
+    VECTOR : T [1, 5 : INTEGER] ; 
+    CONST: C  = 327;
+END 
+CODE 
+     
+    DISPLAY ("c'est un reel %": A );
+     
+     D=A*B+C*A*B;
+     IF (A.GE.B): 
+        DISPLAY ("c'est un reel %": A );
+        D=A*B+C*A*B;
+    ELSE : D=5;
+    END 
+    FOR (I:2:6)
+            N=6;
+             IF (A.GE.B): 
+        DISPLAY ("c'est un reel %": A );
+        D=A*B+C*A*B;
+    ELSE : D=5;
+     END   
+END
+END
